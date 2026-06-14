@@ -1,0 +1,3 @@
+# Placeholder — Docker Compose configuration coming soon
+version: "3.9"
+services: {}

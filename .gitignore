@@ -1,0 +1,117 @@
+# ============================================================
+# WELLWAY — Monorepo .gitignore
+# ASP.NET Core (/src) + React+Vite (/client) + Docker + Redis
+# ============================================================
+
+# ------------------------------------------------------------
+# .NET / ASP.NET Core (/src)
+# ------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+.vs/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+*.nupkg
+*.snupkg
+*.[Nn]uke
+.fake/
+_ReSharper*/
+*.DotSettings.user
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+*.Coverage
+coverage*/
+*.coveragexml
+*.trx
+publish/
+PublishProfiles/
+*.pubxml
+*.pubxml.user
+
+# Entity Framework migrations (keep migrations, ignore snapshots if desired)
+# Uncomment next line only if you want to ignore EF snapshots:
+# **/Migrations/*Snapshot.cs
+
+# Secrets / config overrides
+appsettings.*.json
+!appsettings.Development.json
+secrets.json
+**/*.pfx
+**/*.p12
+**/*.key
+
+# ------------------------------------------------------------
+# Node / React + Vite (/client)
+# ------------------------------------------------------------
+node_modules/
+client/dist/
+client/.cache/
+client/.vite/
+client/coverage/
+client/.env
+client/.env.*
+!client/.env.example
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Storybook
+client/storybook-static/
+
+# ------------------------------------------------------------
+# Docker (root)
+# ------------------------------------------------------------
+.dockerignore
+docker-compose.override.yml
+docker-compose.*.yml
+!docker-compose.prod.yml
+!docker-compose.dev.yml
+
+# ------------------------------------------------------------
+# Redis
+# ------------------------------------------------------------
+dump.rdb
+*.rdb
+redis.conf.local
+
+# ------------------------------------------------------------
+# VS Code (keep .vscode folder, ignore personal settings)
+# ------------------------------------------------------------
+.vscode/settings.json
+.vscode/*.code-workspace
+
+# ------------------------------------------------------------
+# OS / General
+# ------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ------------------------------------------------------------
+# Misc
+# ------------------------------------------------------------
+*.log
+*.tmp
+*.bak
+*.swp
+.idea/
+*.iml

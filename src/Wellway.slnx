@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="../tests/Wellway.IntegrationTests/Wellway.IntegrationTests.csproj" />
+  <Project Path="../tests/Wellway.UnitTests/Wellway.UnitTests.csproj" />
+  <Project Path="Wellway.Api/Wellway.Api.csproj" />
+  <Project Path="Wellway.Application/Wellway.Application.csproj" />
+  <Project Path="Wellway.Domain/Wellway.Domain.csproj" />
+  <Project Path="Wellway.Infrastructure/Wellway.Infrastructure.csproj" />
+</Solution>
