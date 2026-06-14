@@ -1,0 +1,42 @@
+meta {
+  name: Register Patient
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/patients
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "preferredName": null,
+    "dateOfBirth": "1985-03-22",
+    "biologicalSex": "Female",
+    "genderIdentity": "Female",
+    "pronouns": "she/her",
+    "nhsNumber": "9876543210",
+    "address": {
+      "line1": "12 Oak Street",
+      "line2": null,
+      "city": "Manchester",
+      "county": "Greater Manchester",
+      "postCode": "M1 2AB",
+      "country": "United Kingdom"
+    },
+    "phoneNumber": "07700 900123",
+    "email": "jane.smith@example.com",
+    "emergencyContactName": "John Smith",
+    "emergencyContactPhone": "07700 900456",
+    "emergencyContactRelationship": "Spouse",
+    "bloodType": "APositive"
+  }
+}

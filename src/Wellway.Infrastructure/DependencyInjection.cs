@@ -71,6 +71,7 @@ public static class DependencyInjection
 
         services.AddAuthorization();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IWellwayDbContext>(sp => sp.GetRequiredService<WellwayDbContext>());
 
         return services;
     }

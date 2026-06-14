@@ -1,0 +1,21 @@
+meta {
+  name: Get Patients
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/patients
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+params:query {
+  searchTerm:
+  pageNumber: 1
+  pageSize: 20
+}

@@ -1,6 +1,5 @@
 using Microsoft.OpenApi;
 using Serilog;
-using Wellway.Api.Endpoints.Auth;
 using Wellway.Api.Middleware;
 using Wellway.Application;
 using Wellway.Infrastructure;
@@ -14,6 +13,7 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -56,7 +56,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSerilogRequestLogging();
 
-app.MapAuthEndpoints();
+app.MapControllers();
 
 app.Run();
 
