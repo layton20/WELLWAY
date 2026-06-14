@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Wellway.Domain\Wellway.Domain.csproj" />
   </ItemGroup>
 
@@ -10,7 +14,6 @@
     <PackageReference Include="Mapster" Version="10.0.8" />
     <PackageReference Include="Mapster.DependencyInjection" Version="10.0.8" />
     <PackageReference Include="MediatR" Version="14.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
   </ItemGroup>
 
   <PropertyGroup>

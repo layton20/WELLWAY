@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wellway.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Wellway.Infrastructure.Persistence;
 namespace Wellway.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WellwayDbContext))]
-    partial class WellwayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260614222026_AddIdentityUserExtensions")]
+    partial class AddIdentityUserExtensions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

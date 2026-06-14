@@ -1,20 +1,15 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Wellway.Application.Identity;
 using Wellway.Domain.Auditing;
 using Wellway.Domain.Entities;
 
 namespace Wellway.Infrastructure.Persistence;
 
-public sealed class WellwayDbContext(
-    DbContextOptions<WellwayDbContext> options,
-    IHttpContextAccessor httpContextAccessor)
-    : IdentityDbContext<IdentityUser>(options)
+public sealed class WellwayDbContext(DbContextOptions<WellwayDbContext> options)
+    : IdentityDbContext<WellwayIdentityUser>(options)
 {
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
-
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<Appointment> Appointments => Set<Appointment>();
     public DbSet<Staff> StaffMembers => Set<Staff>();
