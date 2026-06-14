@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Wellway.Domain.Auditing;
 using Wellway.Domain.Common;
@@ -44,12 +45,12 @@ public sealed class AuditInterceptor(IHttpContextAccessor httpContextAccessor) :
             if (entry.State == EntityState.Added)
             {
                 action = AuditAction.Created;
-                newValues = SerializeProperties(entry.CurrentValues);
+                newValues = SerializeEntry(entry, useOriginal: false);
             }
             else if (entry.State == EntityState.Modified)
             {
-                oldValues = SerializeProperties(entry.OriginalValues);
-                newValues = SerializeProperties(entry.CurrentValues);
+                oldValues = SerializeEntry(entry, useOriginal: true);
+                newValues = SerializeEntry(entry, useOriginal: false);
 
                 var isDeletedProperty = entry.Properties
                     .FirstOrDefault(p => p.Metadata.Name == nameof(AuditableEntity.IsDeleted));
@@ -67,7 +68,7 @@ public sealed class AuditInterceptor(IHttpContextAccessor httpContextAccessor) :
             }
             else
             {
-                oldValues = SerializeProperties(entry.OriginalValues);
+                oldValues = SerializeEntry(entry, useOriginal: true);
                 action = AuditAction.SoftDeleted;
             }
 
@@ -77,10 +78,30 @@ public sealed class AuditInterceptor(IHttpContextAccessor httpContextAccessor) :
         context.Set<AuditLog>().AddRange(auditEntries);
     }
 
-    private static string SerializeProperties(Microsoft.EntityFrameworkCore.ChangeTracking.PropertyValues values)
+    private static string SerializeEntry(EntityEntry entry, bool useOriginal)
     {
-        var dict = values.Properties
-            .ToDictionary(p => p.Name, p => values[p]);
+        var values = useOriginal ? entry.OriginalValues : entry.CurrentValues;
+        var dict = new Dictionary<string, object?>();
+
+        foreach (var property in values.Properties)
+        {
+            dict[property.Name] = values[property];
+        }
+
+        // Owned entity navigations (e.g. Patient.Address) are tracked as separate
+        // EntityEntries and do not appear in the owning entity's PropertyValues.
+        // Walk references and merge owned entity scalars into the same dictionary.
+        foreach (var reference in entry.References)
+        {
+            var targetEntry = reference.TargetEntry;
+            if (targetEntry is null || !targetEntry.Metadata.IsOwned()) continue;
+
+            var ownedValues = useOriginal ? targetEntry.OriginalValues : targetEntry.CurrentValues;
+            foreach (var property in ownedValues.Properties)
+            {
+                dict[property.Name] = ownedValues[property];
+            }
+        }
 
         return JsonSerializer.Serialize(dict);
     }

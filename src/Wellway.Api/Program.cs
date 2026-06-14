@@ -2,6 +2,7 @@ using Serilog;
 using Wellway.Api.Middleware;
 using Wellway.Application;
 using Wellway.Infrastructure;
+using Wellway.Infrastructure.Persistence.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddAuthentication().AddJwtBearer();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+    await DataSeeder.SeedAsync(app.Services);
 
 app.UseMiddleware<ValidationExceptionMiddleware>();
 
