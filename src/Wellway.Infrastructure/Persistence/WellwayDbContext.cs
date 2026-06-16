@@ -17,11 +17,6 @@ public sealed class WellwayDbContext(DbContextOptions<WellwayDbContext> options)
     public DbSet<Department> Departments => Set<Department>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
-    public async Task<long> GetNextPatientSequenceValueAsync(CancellationToken cancellationToken = default)
-        => await Database
-            .SqlQuery<long>($"SELECT NEXT VALUE FOR dbo.PatientIdSequence AS [Value]")
-            .SingleAsync(cancellationToken);
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

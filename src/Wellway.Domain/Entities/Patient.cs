@@ -6,7 +6,7 @@ namespace Wellway.Domain.Entities;
 
 public sealed class Patient : AuditableEntity
 {
-    public string HospitalPatientId { get; private set; } = string.Empty;
+    public string HospitalPatientId { get; private set; } = null!;
     public string? NhsNumber { get; private set; }
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
@@ -30,7 +30,6 @@ public sealed class Patient : AuditableEntity
 
     public Patient(
         string createdBy,
-        string hospitalPatientId,
         string firstName,
         string lastName,
         DateOnly dateOfBirth,
@@ -48,7 +47,6 @@ public sealed class Patient : AuditableEntity
         BloodType bloodType = BloodType.Unknown)
         : base(createdBy)
     {
-        HospitalPatientId = hospitalPatientId;
         NhsNumber = nhsNumber;
         FirstName = firstName;
         LastName = lastName;

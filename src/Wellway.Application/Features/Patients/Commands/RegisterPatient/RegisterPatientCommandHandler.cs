@@ -39,9 +39,6 @@ public sealed class RegisterPatientCommandHandler(
                 return Result<PatientDto>.Failure(Error.Validation("Invalid BloodType value."));
         }
 
-        var seqValue = await context.GetNextPatientSequenceValueAsync(cancellationToken);
-        var hospitalPatientId = $"WW-{seqValue:D6}";
-
         var address = new Address(
             request.Address.Line1,
             request.Address.Line2,
@@ -55,7 +52,6 @@ public sealed class RegisterPatientCommandHandler(
 
         var patient = new Patient(
             createdBy: createdBy,
-            hospitalPatientId: hospitalPatientId,
             firstName: request.FirstName,
             lastName: request.LastName,
             dateOfBirth: request.DateOfBirth,

@@ -14,7 +14,9 @@ public sealed class PatientConfiguration : IEntityTypeConfiguration<Patient>
 
         builder.Property(p => p.HospitalPatientId)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(20)
+            .HasDefaultValueSql("'WW-' + FORMAT(NEXT VALUE FOR dbo.PatientIdSequence, 'D6')")
+            .ValueGeneratedOnAdd();
 
         builder.HasIndex(p => p.HospitalPatientId).IsUnique();
 

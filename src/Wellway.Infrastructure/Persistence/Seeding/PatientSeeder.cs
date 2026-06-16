@@ -101,7 +101,6 @@ public static class PatientSeeder
 
             patients.Add(new Patient(
                 createdBy: "system-seed",
-                hospitalPatientId: $"WW-{i:D6}",
                 firstName: firstName,
                 lastName: lastName,
                 dateOfBirth: dateOfBirth,
